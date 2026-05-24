@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // MVP: solo el backend (Firebase Admin) escribe.
+    // La web y el móvil consumen la API Node, no Firestore directo.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

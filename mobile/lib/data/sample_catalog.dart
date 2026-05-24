@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+
+import '../models/catalog_item.dart';
+
+/// Catálogo de ejemplo (MVP: top sellers manuales, sin datos de terceros).
+const double kDefaultServiceFeeRate = 0.12;
+
+List<CatalogItem> sampleCatalog() {
+  return [
+    const CatalogItem(
+      id: '1',
+      name: 'Aceite vegetal 4 L',
+      shortDescription: 'Envase estándar club',
+      categoryIcon: Icons.local_dining_outlined,
+      storePriceMxn: 189.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+    ),
+    const CatalogItem(
+      id: '2',
+      name: 'Arroz blanco 10 kg',
+      shortDescription: 'Bolsa',
+      categoryIcon: Icons.grain_outlined,
+      storePriceMxn: 298.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+      highlightOffer: true,
+    ),
+    const CatalogItem(
+      id: '3',
+      name: 'Papel higiénico 30 rollos',
+      shortDescription: 'Paquete familiar',
+      categoryIcon: Icons.home_outlined,
+      storePriceMxn: 429.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+    ),
+    const CatalogItem(
+      id: '4',
+      name: 'Agua purificada 24 botellas',
+      shortDescription: '500 ml c/u',
+      categoryIcon: Icons.water_drop_outlined,
+      storePriceMxn: 165.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: false,
+    ),
+    const CatalogItem(
+      id: '5',
+      name: 'Pollo entero congelado',
+      shortDescription: 'Por kg aprox.',
+      categoryIcon: Icons.restaurant_outlined,
+      storePriceMxn: 95.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+    ),
+    const CatalogItem(
+      id: '6',
+      name: 'Leche entera 6 pack',
+      shortDescription: '1 L c/u',
+      categoryIcon: Icons.breakfast_dining_outlined,
+      storePriceMxn: 142.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+    ),
+    const CatalogItem(
+      id: '7',
+      name: 'Huevo blanco 30 pzas',
+      shortDescription: 'Charola',
+      categoryIcon: Icons.egg_outlined,
+      storePriceMxn: 118.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+      highlightOffer: true,
+    ),
+    const CatalogItem(
+      id: '8',
+      name: 'Detergente líquido 4.43 L',
+      shortDescription: 'Concentrado',
+      categoryIcon: Icons.cleaning_services_outlined,
+      storePriceMxn: 389.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+    ),
+    const CatalogItem(
+      id: '9',
+      name: 'Servilletas 12 paquetes',
+      shortDescription: 'Cocina',
+      categoryIcon: Icons.layers_outlined,
+      storePriceMxn: 249.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+    ),
+    const CatalogItem(
+      id: '10',
+      name: 'Café molido 1.36 kg',
+      shortDescription: 'Bolsa',
+      categoryIcon: Icons.coffee_outlined,
+      storePriceMxn: 312.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+    ),
+    const CatalogItem(
+      id: '11',
+      name: 'Pan integral 2 bolsas',
+      shortDescription: 'Congelable',
+      categoryIcon: Icons.bakery_dining_outlined,
+      storePriceMxn: 89.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+    ),
+    const CatalogItem(
+      id: '12',
+      name: 'Pilas alcalinas AA 48 pzas',
+      shortDescription: 'Multipack',
+      categoryIcon: Icons.battery_charging_full_outlined,
+      storePriceMxn: 519.0,
+      serviceFeeRate: kDefaultServiceFeeRate,
+      available: true,
+    ),
+  ];
+}

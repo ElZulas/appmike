@@ -1,0 +1,16 @@
+# Cachés y dependencias
+**/node_modules/
+**/.next/
+**/dist/
+mobile/build/
+mobile/.dart_tool/
+mobile/android/.gradle/
+**/.DS_Store
+
+# Secretos (nunca subir)
+**/.env
+**/.env.local
+!**/.env.example
+!**/.env.local.example
+**/*-firebase-adminsdk-*.json
+mobile/dart_defines/prod.json
