@@ -11,34 +11,47 @@ function resolveCredentialsPath(raw) {
   return isAbsolute(raw) ? raw : resolve(apiRoot, raw);
 }
 
-const credPath = resolveCredentialsPath(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-const hasEnvVars =
-  process.env.FIREBASE_PROJECT_ID &&
-  process.env.FIREBASE_CLIENT_EMAIL &&
-  process.env.FIREBASE_PRIVATE_KEY;
+function loadServiceAccount() {
+  const inline = process.env.FIREBASE_SERVICE_ACCOUNT_JSON?.trim();
+  if (inline) return JSON.parse(inline);
 
-if (!credPath && !hasEnvVars) {
-  console.error("❌ Falta GOOGLE_APPLICATION_CREDENTIALS o FIREBASE_* en api/.env");
+  const credPath = resolveCredentialsPath(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+  if (credPath) return JSON.parse(readFileSync(credPath, "utf8"));
+
+  if (
+    process.env.FIREBASE_PROJECT_ID &&
+    process.env.FIREBASE_CLIENT_EMAIL &&
+    process.env.FIREBASE_PRIVATE_KEY
+  ) {
+    return {
+      project_id: process.env.FIREBASE_PROJECT_ID,
+      client_email: process.env.FIREBASE_CLIENT_EMAIL,
+      private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    };
+  }
+
+  return null;
+}
+
+const sa = loadServiceAccount();
+if (!sa) {
+  console.error(
+    "❌ Falta Firebase: GOOGLE_APPLICATION_CREDENTIALS (local), FIREBASE_SERVICE_ACCOUNT_JSON (Render) o FIREBASE_*",
+  );
   process.exit(1);
 }
 
 try {
-  if (credPath) {
-    const sa = JSON.parse(readFileSync(credPath, "utf8"));
-    admin.initializeApp({ credential: admin.credential.cert(sa) });
-    console.log(`✓ Credenciales: ${credPath}`);
-    console.log(`  Proyecto: ${sa.project_id}`);
-    console.log(`  Cuenta: ${sa.client_email}`);
+  admin.initializeApp({ credential: admin.credential.cert(sa) });
+  if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON?.trim()) {
+    console.log("✓ Credenciales: FIREBASE_SERVICE_ACCOUNT_JSON");
+  } else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    console.log(`✓ Credenciales: ${process.env.GOOGLE_APPLICATION_CREDENTIALS}`);
   } else {
-    admin.initializeApp({
-      credential: admin.credential.cert({
-        projectId: process.env.FIREBASE_PROJECT_ID,
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
-      }),
-    });
-    console.log(`✓ Credenciales por variables (proyecto ${process.env.FIREBASE_PROJECT_ID})`);
+    console.log(`✓ Credenciales por variables (proyecto ${sa.project_id})`);
   }
+  console.log(`  Proyecto: ${sa.project_id}`);
+  console.log(`  Cuenta: ${sa.client_email}`);
 
   const db = admin.firestore();
   const snap = await db.collection("products").limit(1).get();
