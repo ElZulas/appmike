@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../config/api_config.dart';
 import '../widgets/api_settings_sheet.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
+
+  Future<void> _openWebSession(BuildContext context) async {
+    final uri = Uri.parse('${ApiConfig.webAppDefault}/app?tab=session');
+    final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!ok && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No se pudo abrir el navegador. Entra a appmike.vercel.app'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +76,19 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () => _openWebSession(context),
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.white70,
+                    foregroundColor: Colors.white,
                     side: BorderSide(color: Colors.white.withValues(alpha: 0.25)),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  child: const Text('Iniciar sesión (próximamente)'),
+                  child: const Text('Iniciar sesión (web)'),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'La cuenta y el pedido con pago están en la web por ahora. El catálogo en la app no requiere sesión.',
+                  textAlign: TextAlign.center,
+                  style: text.labelSmall?.copyWith(color: Colors.white54, height: 1.35),
                 ),
                 const SizedBox(height: 8),
                 GestureDetector(

@@ -48,4 +48,6 @@ Si instalas un APK **sin** `prod.json`, al abrir la app pide la URL pública de 
 - **Bienvenida** (`/`) — landing, CTA al catálogo.
 - **Catálogo** (`/catalog`) — `GET /v1/catalog/products`, carrito en `shared_preferences`.
 
-Auth y checkout contra la API (Firebase + pedidos) van en la siguiente iteración.
+**Sesión:** el catálogo en la app no pide cuenta. **Iniciar sesión** abre la web (`appmike.vercel.app`) en el navegador; login nativo en la app viene después (Firebase + `google-services.json`).
+
+Auth y checkout con pago en la app nativa van en la siguiente iteración.

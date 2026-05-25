@@ -13,6 +13,9 @@ class ApiConfig {
   /// API pública en Render (SuperSocio).
   static const String productionDefault = 'https://super-socio-api.onrender.com';
 
+  /// Tienda web (login y pedidos con cuenta).
+  static const String webAppDefault = 'https://appmike.vercel.app';
+
   static const String _compileTime = String.fromEnvironment('API_BASE_URL');
 
   static String _resolved = '';
