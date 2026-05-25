@@ -139,6 +139,7 @@ PORT=10000
 FIREBASE_SERVICE_ACCOUNT_JSON={"type":"service_account",...}
 
 CORS_ORIGIN=https://TU-APP.vercel.app,http://localhost:3000
+# (La API también acepta cualquier https://*.vercel.app automáticamente.)
 WEB_PUBLIC_URL=https://TU-APP.vercel.app
 API_PUBLIC_URL=https://TU-SERVICIO.onrender.com
 

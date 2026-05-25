@@ -25,14 +25,28 @@ import type { CreateOrderBody, SetDeliveredBody } from "./types.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 4000);
-const corsOrigin = process.env.CORS_ORIGIN?.split(",").map((s) => s.trim()) ?? [
+const corsOrigin = process.env.CORS_ORIGIN?.split(",").map((s) => s.trim()).filter(Boolean) ?? [
   "http://localhost:3000",
   "http://127.0.0.1:3000",
 ];
 
+/** Vercel usa dominios distintos por proyecto/preview (*.vercel.app). */
+function isAllowedOrigin(origin: string | undefined): boolean {
+  if (!origin) return true;
+  if (corsOrigin.includes(origin)) return true;
+  if (/^https:\/\/[\w-]+(\.[\w-]+)*\.vercel\.app$/.test(origin)) return true;
+  return false;
+}
+
 app.use(
   cors({
-    origin: corsOrigin,
+    origin(origin, callback) {
+      if (isAllowedOrigin(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS bloqueado para: ${origin}`));
+      }
+    },
     credentials: true,
   }),
 );
