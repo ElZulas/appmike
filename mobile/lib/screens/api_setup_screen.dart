@@ -115,7 +115,7 @@ class _ApiSetupScreenState extends State<ApiSetupScreen> {
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'URL de la API',
-                    hintText: 'https://super-socio-api.onrender.com',
+                    hintText: ApiConfig.productionDefault,
                     labelStyle: const TextStyle(color: Colors.white70),
                     hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.35)),
                     filled: true,

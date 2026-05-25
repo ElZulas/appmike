@@ -27,8 +27,8 @@ flutter run --dart-define=API_BASE_URL=http://192.168.x.x:4000
 ### Opción A — URL embebida al compilar (recomendado para distribución)
 
 1. Despliega la API (ver `api/render.yaml` y variables en `api/.env.example`).
-2. Copia `dart_defines/prod.json.example` → `dart_defines/prod.json`.
-3. Pon tu URL pública, por ejemplo `https://super-socio-api.onrender.com`.
+2. (Opcional) Copia `dart_defines/prod.json.example` → `dart_defines/prod.json` si quieres otra URL.
+3. Por defecto el APK usa `https://super-socio-api.onrender.com` (Render).
 4. Compila:
 
 ```powershell

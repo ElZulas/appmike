@@ -8,9 +8,11 @@ import '../services/api_url_storage.dart';
 ///
 /// Prioridad: guardado en el dispositivo → `--dart-define=API_BASE_URL` → dev local.
 ///
-/// **Release / APK:** usa `dart_defines/prod.json` al compilar o la pantalla inicial
-/// de configuración (primera vez). No uses `localhost` ni `10.0.2.2` en producción.
+/// **Release / APK:** por defecto la API en Render (misma que la web en producción).
 class ApiConfig {
+  /// API pública en Render (SuperSocio).
+  static const String productionDefault = 'https://super-socio-api.onrender.com';
+
   static const String _compileTime = String.fromEnvironment('API_BASE_URL');
 
   static String _resolved = '';
@@ -50,6 +52,8 @@ class ApiConfig {
       _resolved = !kIsWeb && Platform.isAndroid
           ? 'http://10.0.2.2:4000'
           : 'http://127.0.0.1:4000';
+    } else {
+      _resolved = productionDefault;
     }
 
     _initialized = true;
