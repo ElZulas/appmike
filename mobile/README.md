@@ -45,9 +45,15 @@ Si instalas un APK **sin** `prod.json`, al abrir la app pide la URL pública de 
 ## Pantallas
 
 - **Configurar servidor** — solo si no hay URL guardada ni embebida.
-- **Bienvenida** (`/`) — landing, CTA al catálogo.
+- **Bienvenida** (`/`) — landing, CTA al catálogo e **Iniciar sesión** (Firebase nativo).
+- **Auth** (`/auth`) — correo/contraseña, registro con celular (misma API que la web).
+- **Perfil** (`/profile`) — datos de `GET /v1/users/me`, cerrar sesión, enlace a pedidos en la web.
 - **Catálogo** (`/catalog`) — `GET /v1/catalog/products`, carrito en `shared_preferences`.
 
-**Sesión:** el catálogo en la app no pide cuenta. **Iniciar sesión** abre la web (`appmike.vercel.app`) en el navegador; login nativo en la app viene después (Firebase + `google-services.json`).
+**Firebase Android:** `android/app/google-services.json` y `lib/firebase_options.dart` (generados con FlutterFire). Si cambias el proyecto, ejecuta:
 
-Auth y checkout con pago en la app nativa van en la siguiente iteración.
+```powershell
+dart pub global run flutterfire_cli:flutterfire configure --project=appmike --platforms=android
+```
+
+El catálogo no requiere sesión. Pagar y confirmar pedidos sigue en la web con la misma cuenta.

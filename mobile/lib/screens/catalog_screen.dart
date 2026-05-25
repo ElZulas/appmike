@@ -8,6 +8,9 @@ import '../models/cart_line.dart';
 import '../models/catalog_item.dart';
 import '../services/cart_storage.dart';
 import '../services/catalog_api.dart';
+import '../auth/auth_scope.dart';
+import 'auth_screen.dart';
+import 'profile_screen.dart';
 import '../widgets/cart_panel.dart';
 import '../widgets/product_card.dart';
 
@@ -179,6 +182,25 @@ class _CatalogScreenState extends State<CatalogScreen> {
       appBar: AppBar(
         title: const Text('SuperSocio'),
         actions: [
+          Builder(
+            builder: (context) {
+              final auth = AuthScope.of(context);
+              final signedIn = auth.isSignedIn;
+              return IconButton(
+                tooltip: signedIn ? 'Mi cuenta' : 'Iniciar sesión',
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => signedIn
+                        ? const ProfileScreen()
+                        : const AuthScreen(),
+                  ),
+                ),
+                icon: Icon(
+                  signedIn ? Icons.person : Icons.person_outline,
+                ),
+              );
+            },
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 8),
             child: FilledButton.tonal(

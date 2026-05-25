@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1069662279684",
+    "project_id": "appmike",
+    "storage_bucket": "appmike.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069662279684:android:1769d23888af53a1ed7d51",
+        "android_client_info": {
+          "package_name": "com.supersocio.super_socio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_8NhxVNr4awRHijbCcagUVNz5czUVog4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

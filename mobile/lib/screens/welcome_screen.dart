@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../config/api_config.dart';
+import '../auth/auth_scope.dart';
 import '../widgets/api_settings_sheet.dart';
+import 'profile_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
-
-  Future<void> _openWebSession(BuildContext context) async {
-    final uri = Uri.parse('${ApiConfig.webAppDefault}/app?tab=session');
-    final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
-    if (!ok && context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No se pudo abrir el navegador. Entra a appmike.vercel.app'),
-        ),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
+    final auth = AuthScope.of(context);
 
     return Scaffold(
       body: Container(
@@ -72,21 +61,39 @@ class WelcomeScreen extends StatelessWidget {
                     foregroundColor: const Color(0xFF042F2E),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  child: const Text('Entrar al catálogo', style: TextStyle(fontWeight: FontWeight.w800)),
+                  child: const Text(
+                    'Entrar al catálogo',
+                    style: TextStyle(fontWeight: FontWeight.w800),
+                  ),
                 ),
                 const SizedBox(height: 12),
-                OutlinedButton(
-                  onPressed: () => _openWebSession(context),
-                  style: OutlinedButton.styleFrom(
+                FilledButton.tonal(
+                  onPressed: () => Navigator.of(context).pushNamed('/auth'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Colors.white.withValues(alpha: 0.12),
                     foregroundColor: Colors.white,
-                    side: BorderSide(color: Colors.white.withValues(alpha: 0.25)),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  child: const Text('Iniciar sesión (web)'),
+                  child: Text(
+                    auth.isSignedIn ? 'Mi cuenta' : 'Iniciar sesión',
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
                 ),
+                if (auth.isSignedIn) ...[
+                  const SizedBox(height: 8),
+                  TextButton(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(builder: (_) => const ProfileScreen()),
+                    ),
+                    child: Text(
+                      auth.profile?.label ?? auth.user?.email ?? 'Ver perfil',
+                      style: text.labelLarge?.copyWith(color: const Color(0xFF2DD4BF)),
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 8),
                 Text(
-                  'La cuenta y el pedido con pago están en la web por ahora. El catálogo en la app no requiere sesión.',
+                  'El catálogo no requiere sesión. Para pagar y pedir, usa la web con la misma cuenta.',
                   textAlign: TextAlign.center,
                   style: text.labelSmall?.copyWith(color: Colors.white54, height: 1.35),
                 ),
