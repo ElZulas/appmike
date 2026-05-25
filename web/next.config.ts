@@ -8,6 +8,8 @@ const monorepoRoot = path.resolve(webRoot, "..");
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: monorepoRoot,
+  // Evita Turbopack en build (falla en Vercel con WorkerError)
+  turbopack: {},
   webpack: (config, { dev }) => {
     if (dev) {
       config.watchOptions = {
