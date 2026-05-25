@@ -7,10 +7,11 @@ import {
   MapPin,
   Receipt,
   Shield,
-  Smartphone,
   Sparkles,
   Store,
 } from "lucide-react";
+import { MobileAppSection } from "@/components/MobileAppSection";
+import { MobileDownloadBanner } from "@/components/MobileDownloadBanner";
 
 const features = [
   {
@@ -65,6 +66,12 @@ export function LandingPage() {
           >
             Iniciar sesión
           </Link>
+          <a
+            href="#app-movil"
+            className="hidden rounded-full px-3 py-2 text-sm font-semibold text-zinc-300 transition hover:text-white max-[480px]:inline"
+          >
+            App
+          </a>
           <Link
             href="/app"
             className="inline-flex items-center gap-1.5 rounded-full bg-teal-500 px-4 py-2 text-sm font-bold text-zinc-950 shadow-lg shadow-teal-500/25 transition hover:bg-teal-400"
@@ -124,61 +131,12 @@ export function LandingPage() {
           ))}
         </section>
 
-        <section
-          id="app-movil"
-          className="border-t border-zinc-800/80 bg-zinc-900/40 py-20 backdrop-blur-sm"
-        >
-          <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 text-center sm:px-6 lg:flex-row lg:text-left">
-            <div className="flex-1">
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-500/15 text-violet-300 ring-1 ring-violet-400/25 lg:mx-0">
-                <Smartphone size={28} />
-              </div>
-              <h2 className="text-3xl font-black tracking-tight sm:text-4xl">Llévalo en el bolsillo</h2>
-              <p className="mt-4 max-w-xl text-zinc-400 lg:mx-0">
-                La app Flutter ya está en marcha: mismo catálogo, carrito y flujo que la web. Mientras
-                publicamos en tiendas, compila desde <code className="text-teal-300">mobile/</code> o pide
-                el APK de prueba al equipo.
-              </p>
-            </div>
-            <div className="flex w-full max-w-md flex-col gap-3">
-              <a
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                className="flex items-center justify-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-950 px-6 py-4 opacity-90 transition hover:border-zinc-500"
-                aria-disabled
-                title="Próximamente en Google Play"
-              >
-                <span className="text-left">
-                  <span className="block text-[10px] uppercase tracking-wide text-zinc-500">
-                    Próximamente
-                  </span>
-                  <span className="text-lg font-bold">Google Play</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                className="flex items-center justify-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-950 px-6 py-4 opacity-90 transition hover:border-zinc-500"
-                aria-disabled
-                title="Próximamente en App Store"
-              >
-                <span className="text-left">
-                  <span className="block text-[10px] uppercase tracking-wide text-zinc-500">
-                    Próximamente
-                  </span>
-                  <span className="text-lg font-bold">App Store</span>
-                </span>
-              </a>
-              <p className="text-xs text-zinc-500">
-                Desarrollo:{" "}
-                <code className="text-zinc-400">cd mobile && flutter run --dart-define=API_BASE_URL=…</code>
-              </p>
-            </div>
-          </div>
-        </section>
+        <MobileAppSection />
       </main>
 
-      <footer className="relative z-10 border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">
+      <MobileDownloadBanner />
+
+      <footer className="relative z-10 border-b border-zinc-800 pb-24 pt-8 text-center text-sm text-zinc-500 sm:border-b-0 sm:pb-8">
         SuperSocio · servicio de mandado · Mérida
       </footer>
     </div>
