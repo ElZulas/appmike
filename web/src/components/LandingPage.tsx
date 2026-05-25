@@ -82,9 +82,9 @@ export function LandingPage() {
             Mérida · mandado inteligente
           </p>
           <h1 className="max-w-4xl text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
-            ¿Qué pedo?{" "}
+            Que onda,{" "}
             <span className="bg-gradient-to-r from-teal-300 via-emerald-300 to-cyan-300 bg-clip-text text-transparent">
-              Tu mandado
+              ¿tu mandado?
             </span>
             , sin fila ni membresía.
           </h1>

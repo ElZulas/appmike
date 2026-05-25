@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SuperSocio — ¿Qué pedo? Tu mandado sin fila",
+  title: "SuperSocio — Que onda, ¿tu mandado?, sin fila ni membresía",
   description:
     "Mandado y última milla en Mérida: club sin membresía, precios transparentes y entrega a domicilio.",
 };

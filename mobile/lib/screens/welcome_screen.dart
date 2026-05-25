@@ -35,7 +35,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '¿Qué pedo?',
+                  'Que onda, ¿tu mandado?, sin fila ni membresía.',
                   style: text.displaySmall?.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w900,
@@ -44,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Tu mandado del club, sin fila ni membresía. Precios estimados y comisión clara.',
+                  'Precios estimados y comisión clara. Un socio compra en el club y te lo deja en la puerta.',
                   style: text.bodyLarge?.copyWith(
                     color: Colors.white.withValues(alpha: 0.75),
                     height: 1.4,
