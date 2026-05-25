@@ -2,8 +2,20 @@ import type { CatalogProduct } from "./catalog";
 import type { Order } from "./orders";
 import type { UserProfile } from "./users";
 
+function serverApiUrl(): string {
+  return (
+    process.env.API_BASE_URL ??
+    process.env.NEXT_PUBLIC_API_BASE_URL ??
+    "http://127.0.0.1:4000"
+  ).replace(/\/$/, "");
+}
+
+/** En el navegador usa proxy de Next (/api-backend); en servidor, URL directa. */
 function apiBase(): string {
-  return process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:4000";
+  if (typeof window !== "undefined") {
+    return "/api-backend";
+  }
+  return serverApiUrl();
 }
 
 async function parseJson<T>(res: Response): Promise<T> {
@@ -28,7 +40,7 @@ async function authFetch(path: string, token: string, init?: RequestInit): Promi
     });
   } catch {
     throw new Error(
-      `No se pudo conectar con la API (${apiBase()}). En Vercel revisa NEXT_PUBLIC_API_BASE_URL; en Render, CORS_ORIGIN con tu dominio .vercel.app`,
+      `No se pudo conectar con la API (${url}). Revisa que la API en Render esté activa y API_BASE_URL en Vercel.`,
     );
   }
   return res;
