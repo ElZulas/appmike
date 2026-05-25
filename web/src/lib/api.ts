@@ -15,14 +15,23 @@ async function parseJson<T>(res: Response): Promise<T> {
 }
 
 async function authFetch(path: string, token: string, init?: RequestInit): Promise<Response> {
-  return fetch(`${apiBase()}${path}`, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      ...init?.headers,
-    },
-  });
+  const url = `${apiBase()}${path}`;
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      ...init,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        ...init?.headers,
+      },
+    });
+  } catch {
+    throw new Error(
+      `No se pudo conectar con la API (${apiBase()}). En Vercel revisa NEXT_PUBLIC_API_BASE_URL; en Render, CORS_ORIGIN con tu dominio .vercel.app`,
+    );
+  }
+  return res;
 }
 
 export async function fetchMyProfile(token: string): Promise<UserProfile> {

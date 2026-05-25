@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 const fieldClass =
@@ -12,12 +12,19 @@ type Props = {
 };
 
 export function ProfileEditor({ onBack }: Props) {
-  const { profile, updateProfile } = useAuth();
-  const [displayName, setDisplayName] = useState(profile?.displayName ?? "");
-  const [phone, setPhone] = useState(profile?.phone ?? "");
-  const [deliveryAddress, setDeliveryAddress] = useState(profile?.deliveryAddress ?? "");
+  const { user, profile, profileError, updateProfile, refreshProfile } = useAuth();
+  const [displayName, setDisplayName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!profile) return;
+    setDisplayName(profile.displayName ?? "");
+    setPhone(profile.phone ?? "");
+    setDeliveryAddress(profile.deliveryAddress ?? "");
+  }, [profile]);
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
@@ -48,8 +55,21 @@ export function ProfileEditor({ onBack }: Props) {
       </button>
       <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-50">Editar perfil e información</h3>
       <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-        Correo: <strong>{profile?.email}</strong> (no editable aquí)
+        Correo: <strong>{profile?.email || user?.email}</strong> (no editable aquí)
       </p>
+
+      {profileError ? (
+        <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-100">
+          {profileError}{" "}
+          <button
+            type="button"
+            className="font-semibold underline"
+            onClick={() => refreshProfile().catch(() => {})}
+          >
+            Reintentar
+          </button>
+        </p>
+      ) : null}
 
       <form onSubmit={save} className="mt-6 max-w-md space-y-3">
         <input

@@ -16,8 +16,9 @@ import { SettingsPanel } from "./SettingsPanel";
 type View = "home" | "profile" | "settings" | "switch";
 
 export function SessionSection() {
-  const { user, profile, loading, logout } = useAuth();
+  const { user, profile, profileError, loading, logout, refreshProfile } = useAuth();
   const [view, setView] = useState<View>("home");
+  const [retrying, setRetrying] = useState(false);
 
   if (loading) {
     return <p className="py-12 text-center text-sm text-zinc-500">Cargando sesión…</p>;
@@ -70,14 +71,39 @@ export function SessionSection() {
         Sesión
       </h2>
 
+      {profileError ? (
+        <div className="mt-4 max-w-md rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-100">
+          <p>{profileError}</p>
+          <button
+            type="button"
+            disabled={retrying}
+            onClick={async () => {
+              setRetrying(true);
+              try {
+                await refreshProfile();
+              } catch {
+                /* profileError ya actualizado */
+              } finally {
+                setRetrying(false);
+              }
+            }}
+            className="mt-2 font-semibold underline disabled:opacity-60"
+          >
+            {retrying ? "Reintentando…" : "Reintentar cargar perfil"}
+          </button>
+        </div>
+      ) : null}
+
       <div className="mt-6 max-w-md rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-700 dark:bg-zinc-800">
         <div className="flex items-start gap-3">
           <UserCircle className="shrink-0 text-teal-700 dark:text-teal-400" size={40} />
           <div className="min-w-0">
             <p className="font-semibold text-zinc-900 dark:text-zinc-50">
-              {profile?.displayName || "Usuario"}
+              {profile?.displayName || user.displayName || "Usuario"}
             </p>
-            <p className="truncate text-sm text-zinc-600 dark:text-zinc-400">{profile?.email}</p>
+            <p className="truncate text-sm text-zinc-600 dark:text-zinc-400">
+              {profile?.email || user.email}
+            </p>
             <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
               Cel: {profile?.phone || "—"}
             </p>

@@ -31,6 +31,7 @@ type RegisterInput = {
 type AuthContextValue = {
   user: User | null;
   profile: UserProfile | null;
+  profileError: string | null;
   loading: boolean;
   firebaseReady: boolean;
   getToken: () => Promise<string | null>;
@@ -46,6 +47,7 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [profileError, setProfileError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const firebaseReady = isFirebaseClientConfigured();
 
@@ -53,6 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const token = await u.getIdToken();
     const p = await fetchMyProfile(token);
     setProfile(p);
+    setProfileError(null);
     return p;
   }, []);
 
@@ -68,11 +71,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (u) {
         try {
           await loadProfile(u);
-        } catch {
+        } catch (err) {
           setProfile(null);
+          setProfileError(
+            err instanceof Error ? err.message : "No se pudo cargar tu perfil desde la API",
+          );
         }
       } else {
         setProfile(null);
+        setProfileError(null);
       }
       setLoading(false);
     });
@@ -108,7 +115,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const refreshProfile = useCallback(async () => {
     if (!user) return;
-    await loadProfile(user);
+    try {
+      await loadProfile(user);
+    } catch (err) {
+      setProfileError(
+        err instanceof Error ? err.message : "No se pudo cargar tu perfil desde la API",
+      );
+      throw err;
+    }
   }, [user, loadProfile]);
 
   const updateProfileFn = useCallback(
@@ -117,6 +131,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!token) throw new Error("No autenticado");
       const p = await updateMyProfile(token, data);
       setProfile(p);
+      setProfileError(null);
       return p;
     },
     [getToken],
@@ -126,6 +141,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     () => ({
       user,
       profile,
+      profileError,
       loading,
       firebaseReady,
       getToken,
@@ -138,6 +154,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [
       user,
       profile,
+      profileError,
       loading,
       firebaseReady,
       getToken,
