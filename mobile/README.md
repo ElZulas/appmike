@@ -1,4 +1,4 @@
-# SuperSocio (Flutter)
+# Club Peninsular Express (Flutter)
 
 App móvil iOS/Android del mismo producto que `web/` y `api/`.
 
