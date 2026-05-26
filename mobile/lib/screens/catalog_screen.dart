@@ -259,26 +259,24 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       children: [
                         Text(
                           'Catálogo estimado',
-                          style: text.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
+                          style: text.headlineSmall?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: scheme.onSurface,
+                          ),
                         ),
                         const SizedBox(height: 6),
                         Text(
                           'Precios y existencias son referencia interna. El total se ajusta al validar el ticket en caja.',
-                          style: text.bodyMedium,
+                          style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
                         ),
                         const SizedBox(height: 16),
                         TextField(
                           controller: _search,
                           onChanged: (_) => setState(() {}),
-                          decoration: InputDecoration(
+                          style: TextStyle(color: scheme.onSurface),
+                          decoration: const InputDecoration(
                             hintText: 'Buscar por nombre…',
-                            prefixIcon: const Icon(Icons.search),
-                            filled: true,
-                            fillColor: scheme.surfaceContainerHighest.withValues(alpha: 0.35),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide.none,
-                            ),
+                            prefixIcon: Icon(Icons.search),
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -287,9 +285,14 @@ class _CatalogScreenState extends State<CatalogScreen> {
                   ),
                 ),
                 if (_filtered.isEmpty)
-                  const SliverFillRemaining(
+                  SliverFillRemaining(
                     hasScrollBody: false,
-                    child: Center(child: Text('Sin resultados.')),
+                    child: Center(
+                      child: Text(
+                        'Sin resultados.',
+                        style: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   )
                 else
                   SliverPadding(

@@ -54,7 +54,10 @@ class ProductCard extends StatelessWidget {
                         ),
                       Text(
                         item.name,
-                        style: text.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                        style: text.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: scheme.onSurface,
+                        ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -152,7 +155,9 @@ class _PriceBlock extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        color: scheme.surfaceContainerLow,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? scheme.surfaceContainerHigh
+            : scheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: scheme.outlineVariant.withValues(alpha: 0.5)),
       ),
@@ -178,14 +183,20 @@ class _PriceBlock extends StatelessWidget {
               label,
               style: emphasis
                   ? t.labelLarge?.copyWith(color: scheme.onSurface)
-                  : t.bodySmall,
+                  : t.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
             ),
           ),
           Text(
             value,
             style: emphasis
-                ? t.titleSmall?.copyWith(fontWeight: FontWeight.w800, color: scheme.primary)
-                : t.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                ? t.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: scheme.primary,
+                  )
+                : t.bodySmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: scheme.onSurface,
+                  ),
           ),
         ],
       ),

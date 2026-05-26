@@ -138,9 +138,11 @@ export function CatalogClient({ initialProducts, onOrderCreated }: Props) {
   return (
     <>
       {initialProducts.length === 0 ? (
-        <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-950">
+        <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-950 dark:border-amber-800 dark:bg-amber-950/50 dark:text-amber-100">
           No hay productos: arranca el API con{" "}
-          <code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs">cd api && npm run dev</code>
+          <code className="rounded bg-amber-100 px-1 py-0.5 font-mono text-xs dark:bg-amber-900/60">
+            cd api && npm run dev
+          </code>
         </div>
       ) : null}
 
@@ -148,20 +150,22 @@ export function CatalogClient({ initialProducts, onOrderCreated }: Props) {
         <button
           type="button"
           onClick={() => setCartOpen(true)}
-          className="relative inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-800 shadow-sm hover:bg-zinc-50"
+          className="relative inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-800 shadow-sm hover:bg-zinc-50 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
         >
           <ShoppingCart size={18} />
           Carrito
           {count > 0 ? (
-            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-teal-700 px-1 text-[11px] font-bold text-white">
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-teal-700 px-1 text-[11px] font-bold text-white dark:bg-teal-500 dark:text-zinc-950">
               {count}
             </span>
           ) : null}
         </button>
       </div>
 
-      <h2 className="text-2xl font-extrabold tracking-tight text-zinc-900">Catálogo estimado</h2>
-      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-600">
+      <h2 className="text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">
+        Catálogo estimado
+      </h2>
+      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
         Precios y existencias son referencia interna. El total se ajusta al validar el ticket en
         caja.
       </p>
@@ -173,7 +177,7 @@ export function CatalogClient({ initialProducts, onOrderCreated }: Props) {
           placeholder="Buscar por nombre…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full max-w-xl rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm shadow-sm outline-none ring-teal-600/20 placeholder:text-zinc-400 focus:ring-4"
+          className="w-full max-w-xl rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 shadow-sm outline-none ring-teal-600/20 placeholder:text-zinc-400 focus:ring-4 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-500"
         />
       </label>
 
@@ -184,7 +188,7 @@ export function CatalogClient({ initialProducts, onOrderCreated }: Props) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="mt-8 text-center text-sm text-zinc-500">Sin resultados.</p>
+        <p className="mt-8 text-center text-sm text-zinc-500 dark:text-zinc-400">Sin resultados.</p>
       ) : null}
 
       <CartDrawer
