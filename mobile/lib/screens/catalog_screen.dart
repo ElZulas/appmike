@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../config/api_config.dart';
 import '../data/sample_catalog.dart';
 import '../widgets/api_settings_sheet.dart';
+import '../widgets/dashboard_settings_sheet.dart';
 import '../models/cart_line.dart';
 import '../models/catalog_item.dart';
 import '../services/cart_storage.dart';
@@ -194,6 +195,11 @@ class _CatalogScreenState extends State<CatalogScreen> {
         ),
         actions: [
           const ThemeToggleIconButton(),
+          IconButton(
+            tooltip: 'Ajustes',
+            onPressed: () => showDashboardSettingsSheet(context),
+            icon: const Icon(Icons.settings_outlined),
+          ),
           Builder(
             builder: (context) {
               final auth = AuthScope.of(context);

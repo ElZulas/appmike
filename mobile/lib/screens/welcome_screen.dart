@@ -101,7 +101,7 @@ class WelcomeScreen extends StatelessWidget {
                 const Spacer(),
                 FilledButton(
                   onPressed: () =>
-                      Navigator.of(context).pushReplacementNamed('/catalog'),
+                      Navigator.of(context).pushNamed('/catalog'),
                   style: FilledButton.styleFrom(
                     backgroundColor: const Color(0xFF2DD4BF),
                     foregroundColor: const Color(0xFF042F2E),
@@ -114,7 +114,17 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 FilledButton.tonal(
-                  onPressed: () => Navigator.of(context).pushNamed('/auth'),
+                  onPressed: () {
+                    if (auth.isSignedIn) {
+                      Navigator.of(context).push<void>(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const ProfileScreen(),
+                        ),
+                      );
+                    } else {
+                      Navigator.of(context).pushNamed('/auth');
+                    }
+                  },
                   child: Text(
                     auth.isSignedIn ? 'Mi cuenta' : 'Iniciar sesión',
                     style: const TextStyle(fontWeight: FontWeight.w800),
