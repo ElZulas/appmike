@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Package, ShoppingBag, User } from "lucide-react";
 import { useState } from "react";
 import type { CatalogProduct } from "@/lib/catalog";
+import { BrandLogo } from "@/components/BrandLogo";
 import { useAuth } from "@/contexts/AuthContext";
-import { APP_NAME, BRAND_LOGO_PATH } from "@/lib/brand";
+import { APP_NAME } from "@/lib/brand";
 import { CatalogClient } from "./CatalogClient";
 import { OrdersSection } from "./OrdersSection";
 import { SessionSection } from "./session/SessionSection";
@@ -41,9 +41,7 @@ export function AppShell({ initialProducts, initialTab = "catalog" }: Props) {
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex shrink-0 items-center">
-              <Image
-                src={BRAND_LOGO_PATH}
-                alt={APP_NAME}
+              <BrandLogo
                 width={200}
                 height={48}
                 className="h-9 w-auto max-w-[min(200px,42vw)] object-contain sm:h-10 sm:max-w-[220px]"

@@ -6,7 +6,7 @@ import { ThemeSync } from "./ThemeSync";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider>
+    <ThemeProvider initialTheme="light">
       <AuthProvider>
         <ThemeSync />
         {children}
