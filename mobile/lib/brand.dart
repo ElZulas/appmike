@@ -1,8 +1,7 @@
 /// Marca visible en la app.
 const String kAppDisplayName = 'Club Peninsular Express';
 
-/// Logo para fondos oscuros (landing app).
-const String kBrandLogoAssetDark = 'assets/images/brand_logo.png';
+/// Logo oficial (mismo asset en ambos temas — fondo blanco en PNG).
+const String kBrandLogoAssetDark = 'assets/images/logo.png';
 
-/// Logo para fondos claros (modo claro).
-const String kBrandLogoAssetLight = 'assets/images/brand_logo_light.png';
+const String kBrandLogoAssetLight = 'assets/images/logo.png';
