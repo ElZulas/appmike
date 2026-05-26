@@ -1,6 +1,7 @@
 "use client";
 
 import { Download, Smartphone } from "lucide-react";
+import { APP_NAME } from "@/lib/brand";
 import { useEffect, useState } from "react";
 
 const APK_PATH = "/downloads/super-socio.apk";
@@ -26,7 +27,9 @@ export function MobileAppSection() {
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-500/15 text-teal-300 ring-1 ring-teal-400/25 lg:mx-0">
               <Smartphone size={28} />
             </div>
-            <h2 className="text-3xl font-black tracking-tight sm:text-4xl">App móvil SuperSocio</h2>
+            <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
+              App móvil {APP_NAME}
+            </h2>
             <p className="mt-4 max-w-xl text-zinc-400 lg:mx-0">
               Mismo catálogo y carrito que la web, optimizado para Android. Si abres esta página desde tu
               celular, instala el APK y listo.

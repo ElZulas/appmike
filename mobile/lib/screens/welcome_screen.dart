@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../auth/auth_scope.dart';
+import '../brand.dart';
 import '../widgets/api_settings_sheet.dart';
 import 'profile_screen.dart';
 
@@ -9,7 +10,6 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
     final auth = AuthScope.of(context);
 
@@ -29,11 +29,12 @@ class WelcomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 32),
-                Text(
-                  'SuperSocio',
-                  style: text.titleLarge?.copyWith(
-                    color: scheme.primaryContainer.withValues(alpha: 0.9),
-                    fontWeight: FontWeight.w800,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset(
+                    kBrandLogoAsset,
+                    height: 64,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 const Spacer(),

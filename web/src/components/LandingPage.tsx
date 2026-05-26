@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -7,11 +8,11 @@ import {
   MapPin,
   Receipt,
   Shield,
-  Sparkles,
   Store,
 } from "lucide-react";
 import { MobileAppSection } from "@/components/MobileAppSection";
 import { MobileDownloadBanner } from "@/components/MobileDownloadBanner";
+import { APP_NAME, BRAND_LOGO_PATH } from "@/lib/brand";
 
 const features = [
   {
@@ -53,12 +54,16 @@ export function LandingPage() {
       />
 
       <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6">
-        <span className="flex items-center gap-2 text-lg font-bold tracking-tight">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-500/20 text-teal-300 ring-1 ring-teal-400/30">
-            <Sparkles size={18} />
-          </span>
-          SuperSocio
-        </span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src={BRAND_LOGO_PATH}
+            alt={APP_NAME}
+            width={320}
+            height={88}
+            className="h-14 w-auto max-w-[min(320px,78vw)] object-contain sm:h-16"
+            priority
+          />
+        </Link>
         <nav className="flex items-center gap-2 sm:gap-3">
           <Link
             href="/app?tab=session"
@@ -137,7 +142,7 @@ export function LandingPage() {
       <MobileDownloadBanner />
 
       <footer className="relative z-10 border-b border-zinc-800 pb-24 pt-8 text-center text-sm text-zinc-500 sm:border-b-0 sm:pb-8">
-        SuperSocio · servicio de mandado · Mérida
+        {APP_NAME} · servicio de mandado · Mérida
       </footer>
     </div>
   );

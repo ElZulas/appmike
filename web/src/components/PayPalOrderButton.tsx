@@ -6,6 +6,7 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 import { useAuth } from "@/contexts/AuthContext";
+import { APP_NAME } from "@/lib/brand";
 import { confirmPayPalPayment } from "@/lib/api";
 import type { Order } from "@/lib/orders";
 
@@ -67,7 +68,7 @@ function Buttons({ order, onPaid, onError }: Props) {
           purchase_units: [
             {
               custom_id: order.id,
-              description: `Pedido SuperSocio #${order.id.slice(0, 8)}`,
+              description: `Pedido ${APP_NAME} #${order.id.slice(0, 8)}`,
               amount: {
                 currency_code: "MXN",
                 value: amount.toFixed(2),

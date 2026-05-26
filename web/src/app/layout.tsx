@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/Providers";
+import { APP_NAME, APP_TAGLINE, BRAND_LOGO_PATH } from "@/lib/brand";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,9 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SuperSocio — Que onda, ¿tu mandado?, sin fila ni membresía",
+  title: `${APP_NAME} — ${APP_TAGLINE}`,
   description:
     "Mandado y última milla en Mérida: club sin membresía, precios transparentes y entrega a domicilio.",
+  icons: {
+    icon: BRAND_LOGO_PATH,
+    apple: BRAND_LOGO_PATH,
+  },
 };
 
 export default function RootLayout({

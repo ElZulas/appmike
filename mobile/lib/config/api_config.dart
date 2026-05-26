@@ -10,7 +10,7 @@ import '../services/api_url_storage.dart';
 ///
 /// **Release / APK:** por defecto la API en Render (misma que la web en producción).
 class ApiConfig {
-  /// API pública en Render (SuperSocio).
+  /// API pública en Render (Club Peninsular Express).
   static const String productionDefault = 'https://super-socio-api.onrender.com';
 
   /// Tienda web (login y pedidos con cuenta).

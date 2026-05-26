@@ -9,6 +9,7 @@ import '../models/catalog_item.dart';
 import '../services/cart_storage.dart';
 import '../services/catalog_api.dart';
 import '../auth/auth_scope.dart';
+import '../brand.dart';
 import 'auth_screen.dart';
 import 'profile_screen.dart';
 import '../widgets/cart_panel.dart';
@@ -180,7 +181,14 @@ class _CatalogScreenState extends State<CatalogScreen> {
             )
           : null,
       appBar: AppBar(
-        title: const Text('SuperSocio'),
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Image.asset(
+            kBrandLogoAsset,
+            height: 32,
+            fit: BoxFit.contain,
+          ),
+        ),
         actions: [
           Builder(
             builder: (context) {

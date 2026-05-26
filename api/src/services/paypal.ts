@@ -97,7 +97,7 @@ export async function createCheckoutForOrder(order: Order): Promise<CheckoutSess
         {
           reference_id: order.id,
           custom_id: order.id,
-          description: `Pedido SuperSocio #${order.id.slice(0, 8)}`,
+          description: `Pedido Club Peninsular Express #${order.id.slice(0, 8)}`,
           amount: {
             currency_code: "MXN",
             value,
@@ -105,7 +105,7 @@ export async function createCheckoutForOrder(order: Order): Promise<CheckoutSess
         },
       ],
       application_context: {
-        brand_name: "SuperSocio",
+        brand_name: "Club Peninsular Express",
         landing_page: "NO_PREFERENCE",
         user_action: "PAY_NOW",
         return_url: `${webBase}/pago/exito?order_id=${order.id}`,

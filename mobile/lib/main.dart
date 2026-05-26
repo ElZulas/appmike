@@ -5,6 +5,7 @@ import 'app/theme.dart';
 import 'auth/auth_controller.dart';
 import 'auth/auth_scope.dart';
 import 'config/api_config.dart';
+import 'brand.dart';
 import 'firebase_options.dart';
 import 'screens/api_setup_screen.dart';
 import 'screens/auth_screen.dart';
@@ -19,18 +20,18 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await ApiConfig.init();
   await _authController.init();
-  runApp(const SuperSocioApp());
+  runApp(const ClubPeninsularExpressApp());
 }
 
-class SuperSocioApp extends StatelessWidget {
-  const SuperSocioApp({super.key});
+class ClubPeninsularExpressApp extends StatelessWidget {
+  const ClubPeninsularExpressApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AuthScope(
       controller: _authController,
       child: MaterialApp(
-        title: 'SuperSocio',
+        title: kAppDisplayName,
         debugShowCheckedModeBanner: false,
         theme: buildSuperSocioTheme(),
         initialRoute: '/',

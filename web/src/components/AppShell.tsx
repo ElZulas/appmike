@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Package, ShoppingBag, User } from "lucide-react";
 import { useState } from "react";
 import type { CatalogProduct } from "@/lib/catalog";
 import { useAuth } from "@/contexts/AuthContext";
+import { APP_NAME, BRAND_LOGO_PATH } from "@/lib/brand";
 import { CatalogClient } from "./CatalogClient";
 import { OrdersSection } from "./OrdersSection";
 import { SessionSection } from "./session/SessionSection";
@@ -38,7 +40,16 @@ export function AppShell({ initialProducts, initialTab = "catalog" }: Props) {
       <header className="sticky top-0 z-30 border-b border-zinc-200 bg-zinc-50/95 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/95">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
-            <h1 className="text-xl font-bold tracking-tight">SuperSocio</h1>
+            <Link href="/" className="flex shrink-0 items-center">
+              <Image
+                src={BRAND_LOGO_PATH}
+                alt={APP_NAME}
+                width={200}
+                height={48}
+                className="h-9 w-auto max-w-[min(200px,42vw)] object-contain sm:h-10 sm:max-w-[220px]"
+                priority
+              />
+            </Link>
             <Link
               href="/"
               className="text-xs font-semibold text-teal-700 hover:underline dark:text-teal-300"
