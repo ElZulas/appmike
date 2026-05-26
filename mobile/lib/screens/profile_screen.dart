@@ -3,6 +3,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../auth/auth_scope.dart';
 import '../config/api_config.dart';
+import '../theme/app_theme_mode.dart';
+import '../widgets/theme_toggle_button.dart';
 import 'auth_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -22,7 +24,10 @@ class ProfileScreen extends StatelessWidget {
 
     if (!auth.isSignedIn) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Mi cuenta')),
+        appBar: AppBar(
+          title: const Text('Mi cuenta'),
+          actions: const [ThemeToggleIconButton()],
+        ),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -50,6 +55,7 @@ class ProfileScreen extends StatelessWidget {
 
     final p = auth.profile;
     final err = auth.profileError;
+    final tm = AppThemeModeScope.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -60,11 +66,28 @@ class ProfileScreen extends StatelessWidget {
             onPressed: auth.refreshProfile,
             icon: const Icon(Icons.refresh),
           ),
+          const ThemeToggleIconButton(),
         ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
+          SwitchListTile(
+            secondary: Icon(
+              tm.isDark ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
+            ),
+            title: const Text('Modo oscuro'),
+            subtitle: const Text('Igual que el interruptor sol/luna de la página web.'),
+            value: tm.isDark,
+            onChanged: (v) {
+              if (v) {
+                tm.setDark();
+              } else {
+                tm.setLight();
+              }
+            },
+          ),
+          const Divider(),
           if (err != null)
             Card(
               color: scheme.errorContainer,

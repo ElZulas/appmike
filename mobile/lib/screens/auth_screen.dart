@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../auth/auth_controller.dart';
 import '../auth/auth_scope.dart';
+import '../widgets/theme_toggle_button.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -70,6 +71,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_register ? 'Crear cuenta' : 'Iniciar sesión'),
+        actions: const [ThemeToggleIconButton()],
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),

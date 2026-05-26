@@ -12,14 +12,17 @@ import 'screens/auth_screen.dart';
 import 'screens/catalog_screen.dart';
 import 'screens/profile_screen.dart';
 import 'screens/welcome_screen.dart';
+import 'theme/app_theme_mode.dart';
 
 final _authController = AuthController();
+final _themeModeController = AppThemeModeController();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await ApiConfig.init();
   await _authController.init();
+  await _themeModeController.load();
   runApp(const ClubPeninsularExpressApp());
 }
 
@@ -28,21 +31,31 @@ class ClubPeninsularExpressApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthScope(
-      controller: _authController,
-      child: MaterialApp(
-        title: kAppDisplayName,
-        debugShowCheckedModeBanner: false,
-        theme: buildSuperSocioTheme(),
-        initialRoute: '/',
-        routes: {
-          '/': (_) => ApiConfig.isConfigured
-              ? const WelcomeScreen()
-              : const ApiSetupScreen(),
-          '/setup': (_) => const ApiSetupScreen(),
-          '/catalog': (_) => const CatalogScreen(),
-          '/auth': (_) => const AuthScreen(),
-          '/profile': (_) => const ProfileScreen(),
+    return AppThemeModeScope(
+      controller: _themeModeController,
+      child: ListenableBuilder(
+        listenable: _themeModeController,
+        builder: (context, _) {
+          return AuthScope(
+            controller: _authController,
+            child: MaterialApp(
+              title: kAppDisplayName,
+              debugShowCheckedModeBanner: false,
+              theme: buildAppLightTheme(),
+              darkTheme: buildAppDarkTheme(),
+              themeMode: _themeModeController.mode,
+              initialRoute: '/',
+              routes: {
+                '/': (_) => ApiConfig.isConfigured
+                    ? const WelcomeScreen()
+                    : const ApiSetupScreen(),
+                '/setup': (_) => const ApiSetupScreen(),
+                '/catalog': (_) => const CatalogScreen(),
+                '/auth': (_) => const AuthScreen(),
+                '/profile': (_) => const ProfileScreen(),
+              },
+            ),
+          );
         },
       ),
     );

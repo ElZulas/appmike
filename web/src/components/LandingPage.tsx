@@ -70,14 +70,26 @@ export function LandingPage() {
         aria-hidden
       />
 
-      <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6">
-        <Link href="/" className="flex items-center rounded-lg outline-none ring-teal-500/40 focus-visible:ring-2">
+      <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-6 sm:px-6">
+        <Link
+          href="/"
+          className="flex min-w-0 flex-col gap-2 rounded-lg outline-none ring-teal-500/40 focus-visible:ring-2 sm:flex-row sm:items-center sm:gap-4"
+        >
           <BrandLogo
-            width={340}
-            height={92}
-            className="h-14 w-auto max-w-[min(340px,78vw)] object-contain sm:h-16"
+            width={320}
+            height={88}
+            className="h-12 w-auto max-w-[min(320px,85vw)] object-contain sm:h-14 sm:max-w-[min(340px,70vw)]"
             priority
           />
+          <span
+            className={
+              isLight
+                ? "max-w-[16rem] text-lg font-black leading-tight tracking-tight text-zinc-900 sm:max-w-xs sm:text-xl"
+                : "max-w-[16rem] text-lg font-black leading-tight tracking-tight text-white sm:max-w-xs sm:text-xl"
+            }
+          >
+            {APP_NAME}
+          </span>
         </Link>
         <nav className="flex items-center gap-1 sm:gap-2">
           <button

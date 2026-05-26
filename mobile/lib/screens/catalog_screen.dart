@@ -14,6 +14,7 @@ import 'auth_screen.dart';
 import 'profile_screen.dart';
 import '../widgets/cart_panel.dart';
 import '../widgets/product_card.dart';
+import '../widgets/theme_toggle_button.dart';
 
 class CatalogScreen extends StatefulWidget {
   const CatalogScreen({super.key});
@@ -165,6 +166,8 @@ class _CatalogScreenState extends State<CatalogScreen> {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
     final wide = _wide(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final logo = isDark ? kBrandLogoAssetDark : kBrandLogoAssetLight;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -184,12 +187,13 @@ class _CatalogScreenState extends State<CatalogScreen> {
         title: Align(
           alignment: Alignment.centerLeft,
           child: Image.asset(
-            kBrandLogoAsset,
+            logo,
             height: 32,
             fit: BoxFit.contain,
           ),
         ),
         actions: [
+          const ThemeToggleIconButton(),
           Builder(
             builder: (context) {
               final auth = AuthScope.of(context);
